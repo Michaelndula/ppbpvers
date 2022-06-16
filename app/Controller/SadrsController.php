@@ -488,7 +488,8 @@ class SadrsController extends AppController {
             }
             if ($this->Sadr->saveAssociated($this->request->data, array('validate' => $validate, 'deep' => true))) {
                 if (isset($this->request->data['submitReport'])) {
-                    $this->Sadr->saveField('submitted', 2);
+                    $this->Sadr->saveField('submitted', 2);                    
+                    $this->Sadr->saveField('submitted_date', date("Y-m-d H:i:s"));
                     //lucian
                     // if(empty($sadr->reference_no)) {
                     if(!empty($sadr['Sadr']['reference_no']) && $sadr['Sadr']['reference_no'] == 'new') {

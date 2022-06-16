@@ -24,6 +24,118 @@ class AefisController extends AppController {
         $this->Aefi->recursive = 0;
         $this->set('aefis', $this->paginate());
     }*/
+    
+      // Short Term Goal 
+      public function beforeFilter()
+      {
+          parent::beforeFilter();
+          $this->Auth->allow('yellowcard');
+      }
+
+    public function yellowcard($id = null)
+    { 
+        $this->autoRender = false;
+
+        $this->Aefi->id = $id;
+        if (!$this->Aefi->exists()) {
+            $this->Session->setFlash(__('Could not verify the AEFI report ID. Please ensure the ID is correct.'), 'flash_error');
+            $this->redirect('/');
+        }
+
+        $aefi = $this->Aefi->find('first', array(
+            'conditions' => array('Aefi.id' => $id),
+            'contain' => array('AefiListOfVaccine', 'AefiDescription', 'County', 'Attachment', 'Designation')
+        ));
+        $aefi = Sanitize::clean($aefi, array('escape' => true));
+
+        $view = new View($this, false);
+        $view->viewPath = 'Aefis/xml';  // Directory inside view directory to search for .ctp files
+        $view->layout = false; // if you want to disable layout
+        $view->set('aefi', $aefi); // set your variables for view here
+        $html = $view->render('yellowcard');   
+        $xml = simplexml_load_string($html);
+        $json = json_encode((array)$xml);
+        $report = json_decode($json,TRUE); 
+        $postData=$this->generateJsonData($report); 
+        
+        debug($postData);
+       exit;
+
+        $HttpSocket = new HttpSocket();
+
+        //Request Access Token
+        $initiate = $HttpSocket->post(
+            'https://digital-store-api-mhr-uat.herokuapp.com/v1/login',
+            array(
+                'email'=>'gmurimi@pharmacyboardkenya.org',
+                'password'=>'Change4me',
+                'platformId'=>'ab1057ca-8e5d-4470-a595-36e7a3901697'                 
+            ),
+            array('header' => array('umc-client-key' => '5ab835c4-3179-4590-bcd2-ff3c27d6b8ff'))
+        );
+        if ($initiate->isOk()) {
+           
+            $body = $initiate->body;
+            $resp = json_decode($body, true);
+            $userId=$resp['id'];
+            $token=$resp['token'];
+            $organisationId=$resp['organisationId'];
+            $header=$report['ichicsrmessageheader'];
+
+            $payload= array(
+                'userId'=>$userId,
+                'organisationId'=>$organisationId,
+                'report'=>$postData
+                         
+            );
+            
+            $results = $HttpSocket->post(
+            'https://digital-store-api-mhr-uat.herokuapp.com/v1/report',
+           $payload,
+            array('header' => array('Authorization' => 'Bearer '.$token))
+        );
+
+         if ($results->isOk()) {
+            $body = $results->body;
+            $resp = json_decode($body, true);
+            $this->Aefi->saveField('webradr_message', $body);
+            $this->Aefi->saveField('webradr_date', date('Y-m-d H:i:s'));
+            $this->Aefi->saveField('webradr_ref', $resp['report']['id']);
+            $this->Flash->success('Yello Card Scheme integration success!!');
+            $this->Flash->success($body);
+            $this->redirect($this->referer());
+
+         }else{
+            $body = $results->body;
+                $this->Aefi->saveField('webradr_message', $body);
+                $this->Flash->error('Error sending report to Yello Card Scheme:');
+                $this->Flash->error($body);
+                $this->redirect($this->referer());
+         }
+        }else{
+            $body = $initiate->body;
+            $this->Aefi->saveField('webradr_message', $body);
+            $this->Flash->error('Error sending report to Yello Card Scheme:');
+            $this->Flash->error($body);
+            $this->redirect($this->referer());
+        }
+ 
+         
+    }
+
+    
+public function generateJsonData($report)
+{
+    $header=$report['ichicsrmessageheader'];    
+    $safety=$report['safetyreport'];
+    
+      $op = array_merge_recursive($header, $safety);
+
+      return json_encode($op);
+  
+    
+    return $postFields;
+}
     public function reporter_index() {
         $this->Prg->commonProcess();
         if (!empty($this->passedArgs['start_date']) || !empty($this->passedArgs['end_date'])) $this->passedArgs['range'] = true;
@@ -468,7 +580,8 @@ class AefisController extends AppController {
             }
             if ($this->Aefi->saveAssociated($this->request->data, array('validate' => $validate, 'deep' => true))) {
                 if (isset($this->request->data['submitReport'])) {
-                    $this->Aefi->saveField('submitted', 2);
+                    $this->Aefi->saveField('submitted', 2);                    
+                    $this->Aefi->saveField('submitted_date', date("Y-m-d H:i:s"));
                     //lucian
                     if(!empty($aefi['Aefi']['reference_no']) && $aefi['Aefi']['reference_no'] == 'new') {
 
