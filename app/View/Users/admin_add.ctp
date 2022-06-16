@@ -74,7 +74,7 @@ $this->Html->script('user', array('inline' => false));
 							'type' => 'select', 'options' => [
 								'Malaria program' => 'Malaria program', 'National Vaccines and immunisation program' => 'National Vaccines and immunisation program',
 								'Neglected tropical diseases program' => 'Neglected tropical diseases program', 'MNCAH Priority Medicines' => 'MNCAH Priority Medicines', 'TB program' => 'TB program',
-								'NASCOP program' => 'NASCOP program', 'cancer/oncology program' => 'cancer/oncology program'
+								'NASCOP program' => 'NASCOP program', 'Cancer/Oncology program' => 'Cancer/Oncology program'
 							], 'empty' => true,
 							'label' => array('class' => 'control-label', 'text' => 'Public Health Program')
 						));
