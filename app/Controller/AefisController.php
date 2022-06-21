@@ -61,8 +61,8 @@ class AefisController extends AppController {
         $report = json_decode($json,TRUE);  
     
         
-       debug($report);
-    exit;
+    //    debug($report);
+    // exit;
 
         $HttpSocket = new HttpSocket();
 
