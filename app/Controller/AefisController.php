@@ -44,22 +44,25 @@ class AefisController extends AppController {
 
         $aefi = $this->Aefi->find('first', array(
             'conditions' => array('Aefi.id' => $id),
-            'contain' => array('AefiListOfVaccine', 'AefiDescription', 'County', 'Attachment', 'Designation')
+            'contain' => array('AefiListOfVaccine', 'AefiDescription', 'County', 'Attachment', 'Designation'),
+         
         ));
         $aefi = Sanitize::clean($aefi, array('escape' => true));
+
+  
 
         $view = new View($this, false);
         $view->viewPath = 'Aefis/xml';  // Directory inside view directory to search for .ctp files
         $view->layout = false; // if you want to disable layout
         $view->set('aefi', $aefi); // set your variables for view here
-        $html = $view->render('yellowcard');   
+        $html = $view->render('json');   
         $xml = simplexml_load_string($html);
         $json = json_encode((array)$xml);
-        $report = json_decode($json,TRUE); 
-        $postData=$this->generateJsonData($report); 
+        $report = json_decode($json,TRUE);  
+    
         
-        debug($postData);
-       exit;
+       debug($report);
+    exit;
 
         $HttpSocket = new HttpSocket();
 
@@ -80,12 +83,12 @@ class AefisController extends AppController {
             $userId=$resp['id'];
             $token=$resp['token'];
             $organisationId=$resp['organisationId'];
-            $header=$report['ichicsrmessageheader'];
+            // $header=$report['ichicsrmessageheader'];
 
             $payload= array(
                 'userId'=>$userId,
                 'organisationId'=>$organisationId,
-                'report'=>$postData
+                'report'=>$report
                          
             );
             
@@ -133,8 +136,7 @@ public function generateJsonData($report)
 
       return json_encode($op);
   
-    
-    return $postFields;
+     
 }
     public function reporter_index() {
         $this->Prg->commonProcess();
