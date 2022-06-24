@@ -48,21 +48,21 @@ class AefisController extends AppController {
          
         ));
         $aefi = Sanitize::clean($aefi, array('escape' => true));
-
+ 
   
 
         $view = new View($this, false);
         $view->viewPath = 'Aefis/xml';  // Directory inside view directory to search for .ctp files
-        $view->layout = false; // if you want to disable layout
+        $view->layout = false; // if you want to disable layout 
         $view->set('aefi', $aefi); // set your variables for view here
         $html = $view->render('json');   
         $xml = simplexml_load_string($html);
-        $json = json_encode((array)$xml);
+        $json = json_encode($xml);
         $report = json_decode($json,TRUE);  
     
         
-    //    debug($report);
-    // exit;
+    //      debug($report);
+    //   exit;
 
         $HttpSocket = new HttpSocket();
 
@@ -88,7 +88,7 @@ class AefisController extends AppController {
             $payload= array(
                 'userId'=>$userId,
                 'organisationId'=>$organisationId,
-                'report'=>$report
+                'report'=>$xml
                          
             );
             

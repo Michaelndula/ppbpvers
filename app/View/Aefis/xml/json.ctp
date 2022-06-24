@@ -117,8 +117,15 @@ echo "\n"; ?>
     <canSaveDraft>1</canSaveDraft>
     <susarEditable>1</susarEditable>
     <spontaneousEditable>1</spontaneousEditable>
-    <!-- <reaction>
-        <id><?php echo 1; ?></id>
+
+    <?php 
+    $i = 0;
+    $reaction=array('only'=>'reaction','dummy'=>'data');
+    foreach ($reaction as $num) :?>
+   
+  <reaction>
+
+        <id><?php echo $i++; ?></id>
         <primarysourcereaction> <?php
                                 if ($aefi['Aefi']['local_reaction']) echo 'Severe, ';
                                 if ($aefi['Aefi']['convulsion']) echo 'Seizures, ';
@@ -157,8 +164,20 @@ echo "\n"; ?>
                             ];
                             if (!empty($aefi['Aefi']['outcome']) && isset($outcomes[$aefi['Aefi']['outcome']])) echo $outcomes[$aefi['Aefi']['outcome']];
                             ?></reactionoutcome>
-    </reaction> -->
-    <!-- <primarysource>
+    </reaction>
+ 
+
+    <?php 
+     
+
+   
+endforeach; ?>
+    <?php
+    $reporter=array('only'=>'reporter','dummy'=>'data');
+    $i = 0;
+    foreach ($reporter as $num) : ?>
+   
+     <primarysource>
         <id><?php echo 1; ?></id>
         <reportertitle></reportertitle>
         <?php $arr = preg_split("/[\s]+/", $aefi['Aefi']['reporter_name']); ?>
@@ -176,10 +195,11 @@ echo "\n"; ?>
         <studyname></studyname>
         <sponsorstudynumb></sponsorstudynumb>
         <observestudytype></observestudytype>
-    </primarysource> -->
+    </primarysource>  
+     
+    <?php endforeach; ?>
 
-
-    <!-- <?php
+  <?php
     $i = 0;
     foreach ($aefi['AefiListOfVaccine'] as $num => $listOfVaccine) : ?>
         <drug>
@@ -226,6 +246,6 @@ echo "\n"; ?>
             <drugrecuraction></drugrecuraction>
 
         </drug>
-    <?php endforeach; ?> -->
+    <?php endforeach; ?>
 
 </ichicsr>
