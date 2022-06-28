@@ -59,10 +59,10 @@ class AefisController extends AppController {
         $xml = simplexml_load_string($html);
         $json = json_encode($xml);
         $report = json_decode($json,TRUE);  
-    
+     
         
-    //      debug($report);
-    //   exit;
+        // debug($report);
+        // exit;
 
         $HttpSocket = new HttpSocket();
 
@@ -83,12 +83,11 @@ class AefisController extends AppController {
             $userId=$resp['id'];
             $token=$resp['token'];
             $organisationId=$resp['organisationId'];
-            // $header=$report['ichicsrmessageheader'];
 
             $payload= array(
                 'userId'=>$userId,
                 'organisationId'=>$organisationId,
-                'report'=>$xml
+                'report'=>$report
                          
             );
             
@@ -125,7 +124,7 @@ class AefisController extends AppController {
  
          
     }
-
+ 
     
 public function generateJsonData($report)
 {

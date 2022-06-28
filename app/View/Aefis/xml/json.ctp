@@ -117,11 +117,11 @@ echo "\n"; ?>
     <canSaveDraft>1</canSaveDraft>
     <susarEditable>1</susarEditable>
     <spontaneousEditable>1</spontaneousEditable>
-
-    <?php 
+    <reaction></reaction> 
+   <?php 
     $i = 0;
-    $reaction=array('only'=>'reaction','dummy'=>'data');
-    foreach ($reaction as $num) :?>
+    $reaction=array(array('only'=>'reaction'));
+    foreach ($reaction as $num => $re) :?>
    
   <reaction>
 
@@ -167,18 +167,15 @@ echo "\n"; ?>
     </reaction>
  
 
-    <?php 
-     
-
-   
-endforeach; ?>
+    <?php endforeach; ?> 
+    <primarysource></primarysource>
     <?php
-    $reporter=array('only'=>'reporter','dummy'=>'data');
-    $i = 0;
-    foreach ($reporter as $num) : ?>
+    $reporter=array(array('only'=>'reporter'));
+    $a = 0;
+    foreach ($reporter as $num =>$re) : ?>
    
      <primarysource>
-        <id><?php echo 1; ?></id>
+        <id><?php echo $a++; ?></id>
         <reportertitle></reportertitle>
         <?php $arr = preg_split("/[\s]+/", $aefi['Aefi']['reporter_name']); ?>
         <reportergivename><?php if (isset($arr[0])) echo $arr[0]; ?></reportergivename>
@@ -198,6 +195,7 @@ endforeach; ?>
     </primarysource>  
      
     <?php endforeach; ?>
+    <drug></drug>
 
   <?php
     $i = 0;
@@ -246,6 +244,6 @@ endforeach; ?>
             <drugrecuraction></drugrecuraction>
 
         </drug>
-    <?php endforeach; ?>
+    <?php endforeach; ?> 
 
 </ichicsr>
