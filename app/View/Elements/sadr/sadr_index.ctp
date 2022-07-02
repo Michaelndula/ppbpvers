@@ -324,8 +324,15 @@
                 echo "&nbsp;";
                 if($redir == 'manager' && empty($sadr['Sadr']['vigiflow_ref']) && $sadr['Sadr']['copied'] == 2) echo $this->Html->link('<span class="label label-warning tooltipper" title="Send to vigiflow"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Vigiflow </span>' ,
                   array('controller' => 'sadrs', 'action' => 'vigiflow', $sadr['Sadr']['id'], 'manager' => false),
+                  array('escape' => false)); 
+                echo "&nbsp;";
+                
+
+                if($redir == 'manager' && empty($sadr['Sadr']['webradr_ref']) && $sadr['Sadr']['copied'] == 2) echo $this->Html->link('<span class="label label-info tooltipper" title="Send to Yellow Card"><i class="fa fa-upload" aria-hidden="true"></i> Yellow Card </span>' ,
+                  array('controller' => 'sadrs', 'action' => 'yellowcard', $sadr['Sadr']['id'], 'manager' => false),
                   array('escape' => false));
                 echo "&nbsp;";
+
                 if($redir == 'manager' && $sadr['Sadr']['copied'] == 2) echo $this->Html->link('<span class="label label-success tooltipper" title="Copy & Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </span>' ,
                   array('controller' => 'sadrs', 'action' => 'edit', $sadr['Sadr']['id']),
                   array('escape' => false));

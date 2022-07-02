@@ -67,12 +67,11 @@ class AefisController extends AppController {
         $HttpSocket = new HttpSocket();
 
         //Request Access Token
-        $initiate = $HttpSocket->post(
-            'https://digital-store-api-mhr-uat.herokuapp.com/v1/login',
+        $initiate = $HttpSocket->post(Configure::read('mhra_auth_api'),
             array(
-                'email'=>'gmurimi@pharmacyboardkenya.org',
-                'password'=>'Change4me',
-                'platformId'=>'ab1057ca-8e5d-4470-a595-36e7a3901697'                 
+                'email'=>Configure::read('mhra_username'),
+                'password'=>Configure::read('mhra_password'),
+                'platformId'=>Configure::read('mhra_platform')              
             ),
             array('header' => array('umc-client-key' => '5ab835c4-3179-4590-bcd2-ff3c27d6b8ff'))
         );
@@ -91,9 +90,8 @@ class AefisController extends AppController {
                          
             );
             
-            $results = $HttpSocket->post(
-            'https://digital-store-api-mhr-uat.herokuapp.com/v1/report',
-           $payload,
+            $results = $HttpSocket->post(Configure::read('mhra_api'),
+                       $payload,
             array('header' => array('Authorization' => 'Bearer '.$token))
         );
 
