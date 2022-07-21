@@ -60,9 +60,8 @@ class AefisController extends AppController {
         $json = json_encode($xml);
         $report = json_decode($json,TRUE);  
      
-        
         // debug($report);
-        // exit;
+        //  exit;
 
         $HttpSocket = new HttpSocket();
 
@@ -99,8 +98,8 @@ class AefisController extends AppController {
             $body = $results->body;
             $resp = json_decode($body, true);
             $this->Aefi->saveField('webradr_message', $body);
-            $this->Aefi->saveField('webradr_date', date('Y-m-d H:i:s'));
-            $this->Aefi->saveField('webradr_ref', $resp['report']['id']);
+           $this->Aefi->saveField('webradr_date', date('Y-m-d H:i:s'));
+           $this->Aefi->saveField('webradr_ref', $resp['report']['id']);
             $this->Flash->success('Yello Card Scheme integration success!!');
             $this->Flash->success($body);
             $this->redirect($this->referer());
@@ -805,7 +804,7 @@ public function generateJsonData($report)
             }
             $aefi = Hash::remove($aefi, 'AefiListOfVaccine.{n}.id');
             $data_save = $aefi['Aefi'];
-            $data_save['AefiListOfVaccine'] = $aefi['AefiListOfVaccine'];
+            if(isset($aefi['AefiListOfVaccine']))  $data_save['AefiListOfVaccine'] = $aefi['AefiListOfVaccine'];
             $data_save['aefi_id'] = $id;
             $data_save['user_id'] = $this->Auth->User('id');;
             $this->Aefi->saveField('copied', 1);
@@ -836,6 +835,7 @@ public function generateJsonData($report)
             if ($this->Aefi->saveAssociated($this->request->data, array('validate' => $validate, 'deep' => true))) {
                 if (isset($this->request->data['submitReport'])) {
                     $this->Aefi->saveField('submitted', 2);
+                    $this->Aefi->saveField('submitted_date', date("Y-m-d H:i:s"));
                     $aefi = $this->Aefi->read(null, $id);
 
                     $this->Session->setFlash(__('The AEFI has been submitted to PPB'), 'alerts/flash_success');

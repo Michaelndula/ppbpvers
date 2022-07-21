@@ -5,15 +5,15 @@ echo "\n"; ?>
     <safetyreportid>KE-PPB-<?php echo $aefi['Aefi']['reference_no']; ?></safetyreportid>
     <primarysourcecountry>KE</primarysourcecountry>
     <occurcountry>KE</occurcountry>
-    <transmissiondateformat>102</transmissiondateformat>
-    <transmissiondate><?php echo date('YmdHis'); ?></transmissiondate>
+    <transmissiondateformat/>
+    <transmissiondate/>
     <reporttype>1</reporttype>
-    <seriousnessdeath><?php echo ($aefi['Aefi']['serious_yes'] == 'Death') ? 1 : 0; ?></seriousnessdeath>
-    <seriousnesslifethreatening><?php echo ($aefi['Aefi']['serious_yes'] == 'Life threatening') ? 1 : 0; ?></seriousnesslifethreatening>
-    <seriousnesshospitalization><?php echo ($aefi['Aefi']['serious_yes'] == 'Missing cost or prolonged hospitalization') ? 1 : 0; ?></seriousnesshospitalization>
-    <seriousnessdisabling><?php echo ($aefi['Aefi']['serious_yes'] == 'Persistent or significant disability') ? 1 : 0; ?></seriousnessdisabling>
-    <seriousnesscongenitalanomali><?php echo ($aefi['Aefi']['serious_yes'] == 'Congenital anomaly') ? 1 : 0; ?></seriousnesscongenitalanomali>
-    <seriousnessother><?php echo ($aefi['Aefi']['serious_yes'] == 'Other important medical event') ? 1 : 0; ?></seriousnessother>
+    <seriousnessdeath><?php echo ($aefi['Aefi']['serious_yes'] == 'Death') ? "1" : "2"; ?></seriousnessdeath>
+    <seriousnesslifethreatening><?php echo ($aefi['Aefi']['serious_yes'] == 'Life threatening') ? "1": "2"; ?></seriousnesslifethreatening>
+    <seriousnesshospitalization><?php echo ($aefi['Aefi']['serious_yes'] == 'Missing cost or prolonged hospitalization') ? "1" : "2"; ?></seriousnesshospitalization>
+    <seriousnessdisabling><?php echo ($aefi['Aefi']['serious_yes'] == 'Persistent or significant disability') ? "1" : "2"; ?></seriousnessdisabling>
+    <seriousnesscongenitalanomali><?php echo ($aefi['Aefi']['serious_yes'] == 'Congenital anomaly') ? "1" : "2"; ?></seriousnesscongenitalanomali>
+    <seriousnessother><?php echo ($aefi['Aefi']['serious_yes'] == 'Other important medical event') ? "1" : "2"; ?></seriousnessother>
     <receivedateformat>102</receivedateformat>
     <receivedate><?php echo date('Ymd', strtotime($aefi['Aefi']['created'])); ?></receivedate>
     <receiptdateformat>102</receiptdateformat>
@@ -26,9 +26,30 @@ echo "\n"; ?>
                                 ?></fulfillexpeditecriteria>
     <authoritynumb>KE-PPB-<?php echo $aefi['Aefi']['reference_no']; ?></authoritynumb>
     <companynumb></companynumb>
-    <duplicate></duplicate>
-    <casenullification></casenullification>
-    <nullificationreason></nullificationreason>
+    <duplicate/>
+    <casenullification/>
+    <nullificationreason/>  
+    <sender>
+            <sendertype>3</sendertype>
+            <senderorganization>Pharmacy and Poisons Board</senderorganization>
+            <senderdepartment>Department of Pharmacovigilance</senderdepartment>
+            <sendertitle>Dr.</sendertitle>
+            <sendergivename>Christabel</sendergivename>
+            <sendermiddlename>N.</sendermiddlename>
+            <senderfamilyname>Khaemba</senderfamilyname>
+            <senderstreetaddress>P.O. Box:27663-00506</senderstreetaddress>
+            <sendercity>Nairobi</sendercity>
+            <senderstate/>
+            <senderpostcode>00506</senderpostcode>
+            <sendercountrycode>KE</sendercountrycode>
+            <sendertel>720608811</sendertel>
+            <sendertelextension/>
+            <sendertelcountrycode>254</sendertelcountrycode>
+            <senderfax>2713409</senderfax>
+            <senderfaxextension>20</senderfaxextension>
+            <senderfaxcountrycode>254</senderfaxcountrycode>
+            <senderemailaddress>pv@pharmacyboardkenya.org</senderemailaddress>
+        </sender>
     <medicallyconfirm> <?php if (!in_array($aefi['Aefi']['designation_id'], [26, 27])) {
                             echo 1;
                         } else {
@@ -81,11 +102,7 @@ echo "\n"; ?>
     <patientagegroup/>
     <patientweight/>
     <patientheight/>
-    <patientsex>
-        <?php if ($aefi['Aefi']['gender'] == 'Male') echo 1;
-        elseif ($aefi['Aefi']['gender'] == 'Female') echo 2;
-        ?>
-    </patientsex>
+    <patientsex><?php if ($aefi['Aefi']['gender'] == 'Male') echo 1;elseif ($aefi['Aefi']['gender'] == 'Female') echo 2;?></patientsex>
     <lastmenstrualdateformat/>
     <patientlastmenstrualdate/>
     <patientmedicalhistorytext><?php echo $aefi['Aefi']['medical_history']; ?></patientmedicalhistorytext>
@@ -114,15 +131,14 @@ echo "\n"; ?>
     <patientautopsyyesno/>
     <messagetype>ichicsr</messagetype>
     <messagenumb>KE-PPB-<?php echo date('Y') . '-' . $aefi['Aefi']['id']; ?></messagenumb>
-    <canSaveDraft>1</canSaveDraft>
-    <susarEditable>1</susarEditable>
-    <spontaneousEditable>1</spontaneousEditable>
+    
     <reaction></reaction> 
    <?php 
     $i = 0;
     $reaction=array(array('only'=>'reaction'));
-    foreach ($reaction as $num => $re) :?>
-   
+    foreach ($reaction as $n => $re) :?>
+      
+  <reaction></reaction>
   <reaction>
 
         <id><?php echo $i++; ?></id>
@@ -153,17 +169,8 @@ echo "\n"; ?>
         ?>
         <reactionenddateformat></reactionenddateformat>
         <reactionenddate></reactionenddate>
-        <reactionoutcome><?php
-                            $outcomes =  [
-                                'Recovered/Resolved' => 1,
-                                'Recovering/Resolving' => 2,
-                                'Recovered/Resolved with sequelae' => 3,
-                                'Not recovered/Not resolved/Ongoing' => 4,
-                                'Fatal' => 5,
-                                'Unknown' => 6
-                            ];
-                            if (!empty($aefi['Aefi']['outcome']) && isset($outcomes[$aefi['Aefi']['outcome']])) echo $outcomes[$aefi['Aefi']['outcome']];
-                            ?></reactionoutcome>
+        <reactionoutcome><?php $outcomes =  ['Recovered/Resolved' => 1,'Recovering/Resolving' => 2,'Recovered/Resolved with sequelae' => 3,'Not recovered/Not resolved/Ongoing' => 4,'Fatal' => 5,'Unknown' => 6];
+                if (!empty($aefi['Aefi']['outcome']) && isset($outcomes[$aefi['Aefi']['outcome']])) echo $outcomes[$aefi['Aefi']['outcome']];?></reactionoutcome>
     </reaction>
  
 
@@ -172,7 +179,7 @@ echo "\n"; ?>
     <?php
     $reporter=array(array('only'=>'reporter'));
     $a = 0;
-    foreach ($reporter as $num =>$re) : ?>
+    foreach ($reporter as $m =>$re) : ?>
    
      <primarysource>
         <id><?php echo $a++; ?></id>
@@ -203,10 +210,8 @@ echo "\n"; ?>
         <drug>
 
             <id><?php echo $i++; ?></id>
-            <drugcharacterization><?php if ($num == 0) echo 1;
-                                    else echo 2;
-                                    ?></drugcharacterization>
-            <medicinalproduct><?php echo $listOfVaccine['vaccine_name']; ?></medicinalproduct>
+            <drugcharacterization><?php if($num == 0) echo 1; else echo 2;?></drugcharacterization>
+            <medicinalproduct><?php echo $listOfVaccine['vaccine_name'];?></medicinalproduct>
             <obtaindrugcountry></obtaindrugcountry>
             <drugbatchnumb><?php echo $listOfVaccine['batch_number']; ?></drugbatchnumb>
             <drugauthorizationnumb></drugauthorizationnumb>
@@ -239,8 +244,8 @@ echo "\n"; ?>
             <drugtreatmentdurationunit></drugtreatmentdurationunit>
             <actiondrug></actiondrug>
             <drugrecurreadministration></drugrecurreadministration>
-            <drugadditional><?php echo $listOfVaccine['diluent_batch_number']; ?></drugadditional>
-            <activesubstancename><?php echo $listOfVaccine['vaccine_name']; ?></activesubstancename>
+            <drugadditional><?php echo $listOfVaccine['diluent_batch_number'];?></drugadditional>
+            <activesubstance><?php echo $listOfVaccine['vaccine_name'];?></activesubstance>
             <drugrecuraction></drugrecuraction>
 
         </drug>
