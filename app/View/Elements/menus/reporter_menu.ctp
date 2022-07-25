@@ -16,9 +16,10 @@
              </li>             
              <li class="<?php echo $this->fetch('AEFI') ?>">
                 <?php
+                if($this->Session->read('Auth.User.health_program')!="Cancer/Oncology program"){
                     echo $this->Html->link('<i class="fa fa-child" aria-hidden="true"></i> AEFIs',
                         array('controller' => 'aefis', 'action'=>'index', 'reporter' => true ), array('escape' => false ));
-                    ?>
+                 } ?>
              </li>
              <li class="<?php echo $this->fetch('PQMP') ?>">
                 <?php

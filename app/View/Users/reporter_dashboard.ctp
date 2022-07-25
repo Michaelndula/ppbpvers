@@ -34,8 +34,10 @@
                     
                   ?>
                 </div>
-                <div class="span4 formbacka" style="padding: 4px;">   
-                  <h5>AEFI</h5>                 
+                
+                <?php if($this->Session->read('Auth.User.health_program')!="Cancer/Oncology program"){?>
+                <div class="span4 formbacka" style="padding: 4px;">    
+                  <h5>AEFI </h5>                  
                     <?php
                       echo '<ol>';
                       foreach ($aefis as $aefi) {
@@ -59,7 +61,9 @@
                     echo $this->Html->link('All AEFIs >>', array('controller' => 'aefis', 'action' => 'index'), array('escape' => false, 'class' => 'btn btn-link'));
                     if($this->Session->read('Auth.User.user_type') != 'Public Health Program')   echo $this->Form->postLink('Report AEFI', array('controller' => 'aefis' , 'action' => 'add'), array('class' => 'btn btn-success pull-right btn-mini'), __('Report New AEFI?'));
                     ?>
+                   
                 </div>
+                <?php }?>
                 <div class="span4 formbackp" style="padding: 4px;">
                   <h5>PQMP</h5>
                     <?php
