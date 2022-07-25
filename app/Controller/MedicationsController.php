@@ -459,6 +459,7 @@ class MedicationsController extends AppController {
             if ($this->Medication->saveAssociated($this->request->data, array('validate' => $validate, 'deep' => true))) {
                 if (isset($this->request->data['submitReport'])) {
                     $this->Medication->saveField('submitted', 2);
+                    $this->Medication->saveField('submitted_date', date("Y-m-d H:i:s"));
                     //lucian
                     if(!empty($medication['Medication']['reference_no']) && $medication['Medication']['reference_no'] == 'new') {
                         $count = $this->Medication->find('count',  array(
