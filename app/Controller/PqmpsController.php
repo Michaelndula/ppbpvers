@@ -355,6 +355,7 @@ class PqmpsController extends AppController {
             if ($this->Pqmp->saveAssociated($this->request->data, array('validate' => $validate, 'deep' => true))) {
                 if (isset($this->request->data['submitReport'])) {
                     $this->Pqmp->saveField('submitted', 2);
+                    $this->Pqmp->saveField('submitted_date', date("Y-m-d H:i:s"));
                     //lucian
                     if(!empty($pqmp['Pqmp']['reference_no']) && $pqmp['Pqmp']['reference_no'] == 'new') {
                         $count = $this->Pqmp->find('count',  array(
