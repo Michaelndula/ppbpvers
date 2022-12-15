@@ -120,6 +120,12 @@
 											'options' => $frequency,
 											'error' => array('attributes' => array( 'class' => 'help-block')),
 											));
+											echo $this->Form->input('SadrListOfDrug.0.frequency_speficy', array(
+												'label' => false, 'between' => false,
+												'style' => 'display: none;',
+												 'error' => array('attributes' => array( 'class' => 'help-block')),
+												 'placeholder'=>'If other, specify',
+												 'class' => 'span11 autosave-ignore',));
 						?>
 					</td>
 					<td data-title="Date Started (dd-mm-yyyy) *">
@@ -231,6 +237,12 @@
 									'options' => $frequency,
 									'error' => array('attributes' => array( 'class' => 'help-block')),
 								));
+								echo $this->Form->input('SadrListOfDrug.'.$i.'.frequency_speficy', array(
+									'label' => false, 'between' => false,
+									 'error' => array('attributes' => array( 'class' => 'help-block')),
+									 'placeholder'=>'If other, specify',
+									 'style' => 'display: none;',
+									 'class' => 'span11 autosave-ignore',));
 
 					?>
 					</td>

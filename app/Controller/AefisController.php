@@ -29,7 +29,6 @@ class AefisController extends AppController {
       public function beforeFilter()
       {
           parent::beforeFilter();
-          $this->Auth->allow('yellowcard');
       }
 
     public function yellowcard($id = null)

@@ -106,8 +106,13 @@
                               'empty' => true, 'label' => false, 'between' => false, 'after' => false, 'class' => 'span12',
                               'type' => 'select',
                               'options' => $frequency,
+                              'onchange' => 'showInput(this);',
                               'error' => array('attributes' => array( 'class' => 'help-block')),
                           ));
+                          echo $this->Form->input('SadrListOfMedicine.'.$i.'.frequency_speficy', array(
+                            'type' => 'text', 'label' => false, 'between' => false,
+                            'style' => 'display: none;',
+                            'after' => false, 'class' => 'span11','placeholder'=>'If other specify'));
                         ?>
                     </td> 
                     <td><?php 
