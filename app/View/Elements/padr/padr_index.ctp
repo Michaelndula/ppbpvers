@@ -208,6 +208,7 @@
         <th><?php echo $this->Paginator->sort('report_title'); ?></th>
         <th><?php echo $this->Paginator->sort('patient_name'); ?></th>
         <th><?php echo $this->Paginator->sort('created'); ?></th>
+        <th><?php echo $this->Paginator->sort('submitted_date'); ?></th>
         <th class="actions"><?php echo __('Actions'); ?></th>
           </tr>
        </thead>
@@ -233,6 +234,7 @@
         </td>
         <td><?php echo h($padr['Padr']['patient_name']); ?>&nbsp;</td>
         <td><?php echo h($padr['Padr']['created']); ?>&nbsp;</td>
+        <td><?php echo h($padr['Padr']['submitted_date']); ?>&nbsp;</td>
         <td class="actions">
             <?php 
               if($padr['Padr']['submitted'] > 1) {

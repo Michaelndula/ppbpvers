@@ -227,6 +227,7 @@ class PadrsController extends AppController {
                 $count = ($count < 10) ? "0$count" : $count;
                 $this->Padr->saveField('reference_no', 'PADR/'.date('Y').'/'.$count);
                 $this->Padr->saveField('token', Security::hash($this->Padr->id));
+                $this->Padr->saveField('submitted_date',date('Y-m-d H:i:s'));
 
                 //******************       Send Emails to Reporter and Managers          *****************************
                     $this->loadModel('Message');
@@ -386,26 +387,26 @@ class PadrsController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
-
-	public function edit($id = null) {
-		if (!$this->Padr->exists($id)) {
-			throw new NotFoundException(__('Invalid report id'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Padr->save($this->request->data)) {
-				$this->Flash->success(__('The report has been saved.'), 'flash_success');
-				return $this->redirect(array('action' => 'edit', $this->Padr->id));
-			} else {
-				$this->Flash->error(__('The report could not be saved. Please, try again.'), 'flash_error');
-			}
-		} else {
-			$options = array('conditions' => array('Padr.' . $this->Padr->primaryKey => $id));
-			$this->request->data = $this->Padr->find('first', $options);
-		}
-		$counties = $this->Padr->County->find('list');
-		$this->set(compact('counties'));
-	}
- */
+*/
+	// public function edit($id = null) {
+	// 	if (!$this->Padr->exists($id)) {
+	// 		throw new NotFoundException(__('Invalid report id'));
+	// 	}
+	// 	if ($this->request->is(array('post', 'put'))) {
+	// 		if ($this->Padr->save($this->request->data)) {
+	// 			$this->Flash->success(__('The report has been saved.'), 'flash_success');
+	// 			return $this->redirect(array('action' => 'edit', $this->Padr->id));
+	// 		} else {
+	// 			$this->Flash->error(__('The report could not be saved. Please, try again.'), 'flash_error');
+	// 		}
+	// 	} else {
+	// 		$options = array('conditions' => array('Padr.' . $this->Padr->primaryKey => $id));
+	// 		$this->request->data = $this->Padr->find('first', $options);
+	// 	}
+	// 	$counties = $this->Padr->County->find('list');
+	// 	$this->set(compact('counties'));
+	// }
+ 
 	public function edit($token = null) {
 		if ($this->request->is('post')) {
 			$id = $this->Padr->field('id', array('token' => $token));
