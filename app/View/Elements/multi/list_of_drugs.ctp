@@ -122,7 +122,7 @@
 											));
 											echo $this->Form->input('SadrListOfDrug.0.frequency_speficy', array(
 												'label' => false, 'between' => false,
-												'style' => 'display: none;',
+												'style' => 'display: block;',
 												 'error' => array('attributes' => array( 'class' => 'help-block')),
 												 'placeholder'=>'If other, specify',
 												 'class' => 'span11 autosave-ignore',));
@@ -241,7 +241,7 @@
 									'label' => false, 'between' => false,
 									 'error' => array('attributes' => array( 'class' => 'help-block')),
 									 'placeholder'=>'If other, specify',
-									 'style' => 'display: none;',
+									 'style' => 'display: block;',
 									 'class' => 'span11 autosave-ignore',));
 
 					?>

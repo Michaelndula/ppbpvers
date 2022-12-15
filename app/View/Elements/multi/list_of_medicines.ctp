@@ -111,7 +111,7 @@
                           ));
                           echo $this->Form->input('SadrListOfMedicine.'.$i.'.frequency_speficy', array(
                             'type' => 'text', 'label' => false, 'between' => false,
-                            'style' => 'display: none;',
+                            'style' => 'display: block;',
                             'after' => false, 'class' => 'span11','placeholder'=>'If other specify'));
                         ?>
                     </td> 
