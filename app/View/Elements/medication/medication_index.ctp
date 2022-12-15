@@ -282,9 +282,9 @@
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('reference_no'); ?></th>
         <th><?php echo ($this->Session->read('Auth.User.user_type') != 'Public Health Program') ? $this->Paginator->sort('patient_name') : $this->Paginator->sort('gender'); ?></th>
+        <th><?php echo $this->Paginator->sort('created', 'Date created'); ?></th>
         <th><?php echo $this->Paginator->sort('reporter_date', 'Date reported'); ?></th>
         <th><?php echo $this->Paginator->sort('submitted_date', 'Date Submitted'); ?></th>
-        <th><?php echo $this->Paginator->sort('created', 'Date created'); ?></th>
         <th class="actions"><?php echo __('Actions'); ?></th>
           </tr>
        </thead>
@@ -303,9 +303,9 @@
         ?>&nbsp;
         </td>
         <td><?php echo ($this->Session->read('Auth.User.user_type') != 'Public Health Program') ? h($medication['Medication']['patient_name']) : h($medication['Medication']['gender']); ?>&nbsp;</td>
+        <td><?php echo h($medication['Medication']['created']); ?>&nbsp;</td>
         <td><?php echo h($medication['Medication']['reporter_date']); ?>&nbsp;</td> 
         <td><?php echo h($medication['Medication']['submitted_date']); ?>&nbsp;</td>
-        <td><?php echo h($medication['Medication']['created']); ?>&nbsp;</td>
         <td class="actions">
             <?php 
               if($medication['Medication']['submitted'] > 1) {
