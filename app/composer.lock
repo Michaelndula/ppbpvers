@@ -104,7 +104,7 @@
             "homepage": "https://github.com/firebase/php-jwt",
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v5.0.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.0.0"
             },
             "time": "2017-06-27T22:17:23+00:00"
         }
