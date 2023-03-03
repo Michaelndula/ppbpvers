@@ -8,7 +8,7 @@
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "3.1.5",
+            "version": "3.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
