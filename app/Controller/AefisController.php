@@ -470,7 +470,7 @@ public function generateJsonData($report)
             $this->Aefi->saveField('vigiflow_date', date('Y-m-d H:i:s'));
             $resp = json_decode($body, true);
             if(json_last_error() == JSON_ERROR_NONE) {
-                $this->Aefi->saveField('vigiflow_ref', $resp['MessageId']);
+                $this->Aefi->saveField('vigiflow_ref', $resp);
             }
             $this->Flash->success('Vigiflow integration success!!');
             $this->Flash->success($body);

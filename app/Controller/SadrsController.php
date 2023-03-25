@@ -434,15 +434,15 @@ class SadrsController extends AppController {
             array('header' => array('umc-client-key' => Configure::read('vigiflow_key')))
         );
 
-        // debug($results->code);
-        // debug($results->body);
+        debug($html);
+        exit;
         if ($results->isOk()) {
             $body = $results->body;
             $this->Sadr->saveField('vigiflow_message', $body);
             $this->Sadr->saveField('vigiflow_date', date('Y-m-d H:i:s'));
             $resp = json_decode($body, true);
             if(json_last_error() == JSON_ERROR_NONE) {
-                $this->Sadr->saveField('vigiflow_ref', $resp['MessageId']);
+                $this->Sadr->saveField('vigiflow_ref', $resp);
             }
             $this->Flash->success('Vigiflow integration success!!');
             $this->Flash->success($body);
